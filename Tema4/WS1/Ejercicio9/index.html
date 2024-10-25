@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arrastrar Imagen</title>
+    <title>Mover Imagen</title>
     <style>
-        #imagen {
-            position: absolute;
+        body {
+            height: 100vh; /* Asegura que el cuerpo tenga suficiente altura */
+            position: relative;
+            margin: 0;
+        }
+        #miImagen {
             width: 100px;
+            position: absolute;
             cursor: grab;
         }
     </style>
 </head>
 <body>
-    <img id="imagen" src="imagen.gif">
-<script src="script.js"></script>
+
+<img id="miImagen" src="imagen.png">
+
+<script src="index.js"></script>
+
 </body>
 </html>
