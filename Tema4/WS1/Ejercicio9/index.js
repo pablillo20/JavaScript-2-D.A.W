@@ -1,33 +1,29 @@
-let figura = document.getElementById('miImagen');
-let isDragging = false; // Estado de arrastre
-let shiftX, shiftY; // Desplazamiento
+let imagen = document.getElementsByTagName("img")[0];
+let movimiento = false;
+let desplazamientoX = 0;
+let desplazamientoY = 0;
 
-figura.onmousedown = function(event) {
-    isDragging = true; // Iniciar arrastre
-    shiftX = event.clientX - figura.getBoundingClientRect().left;
-    shiftY = event.clientY - figura.getBoundingClientRect().top;
+imagen.style.position = "absolute";
 
-    figura.style.position = 'absolute';
-    figura.style.zIndex = 1000; // Asegurar que la imagen esté encima de otros elementos
+imagen.addEventListener("mousedown", (e)=>
+    {
+        movimiento = true;
+        desplazamientoX = e.clientX - imagen.offsetLeft;
+        desplazamientoY = e.clientY - imagen.offsetTop;
+    }
+);
 
-    // Mover la imagen mientras arrastras
-    document.addEventListener('mousemove', moveAt);
+document.addEventListener("mousemove", (e)=> {
+    if(movimiento) {
+        imagen.style.left = (e.clientX - desplazamientoX) +'px';
+        imagen.style.top = (e.clientY - desplazamientoY) + 'px';
+    }
+});
 
-    // Al soltar el botón del ratón
-    document.addEventListener('mouseup', function onMouseUp() {
-        isDragging = false; // Detener arrastre
-        document.removeEventListener('mousemove', moveAt); // Eliminar el evento mousemove
-        document.removeEventListener('mouseup', onMouseUp); // Limpiar el manejador
-    });
+imagen.addEventListener("mouseup", ()=>movimiento = false);
 
-    // Evitar el comportamiento predeterminado de arrastre
-    figura.ondragstart = function() {
-        return false; // Prevenir el comportamiento por defecto
-    };
+
+imagen.ondragstart = function() {
+    return false;
 };
 
-// Función para mover la imagen
-function moveAt(event) {
-    figura.style.left = event.pageX - shiftX + 'px';
-    figura.style.top = event.pageY - shiftY + 'px';
-}
