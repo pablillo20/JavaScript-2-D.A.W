@@ -1,108 +1,129 @@
 let jugador1 = document.getElementById('jugador1');
 let jugador2 = document.getElementById('jugador2');
 let pelota = document.getElementById('pelota');
+let pantalla = document.getElementById('pantalla');
+let marcador = document.getElementById('marcador');
 
 // Posiciones iniciales
-let posicionY1 = 250;
-let posicionY2 = 482;
-let pelotaX = 739;
-let pelotaY = 344;
+let posicionY1 = parseInt(jugador1.getAttribute("y"));
+let posicionY2 = parseInt(jugador2.getAttribute("y"));
+let pelotaX = parseInt(pelota.getAttribute("cx"));
+let pelotaY = parseInt(pelota.getAttribute("cy"));
 
+// Velocidad pelota
 let velocidadX = 5;
 let velocidadY = 5;
 
-const limiteYAbajo = 500;
-const limiteYArriba = 40;
-const limiteXIzquierda = 40;
-const limiteXDerecha = 1438;
+// Límites
+const limiteYArriba = 0;
+const limiteYAbajo = parseInt(pantalla.getAttribute("height"));
+const limiteXIzquierda = parseInt(jugador1.getAttribute("x"));
+const limiteXDerecha = parseInt(jugador2.getAttribute("x")) + parseInt(jugador2.getAttribute("width"));
 
+// Velocidad jugadores
 const velocidad = 10;
 
-
-const posicionX1 = 100;
-const posicionX2 = 1378;
-
-const alturaJugador = 232;
-
-const margenColisionJugador1 = 20;
-const margenColisionJugador2 = 20;
+// Características de los jugadores
+const alturaJugador = parseInt(jugador1.getAttribute("height"));
+const margenColisionJugador1 = parseInt(jugador1.getAttribute("width"));
+const margenColisionJugador2 = parseInt(jugador2.getAttribute("width"));
 
 let juegoIniciado = false;
+let golesJugador1 = 0; // Contador de goles para el Jugador 1
+let golesJugador2 = 0; // Contador de goles para el Jugador 2
 
+// Inicia el juego
 document.getElementById('Iniciar').addEventListener('click', () => {
     document.getElementById('Iniciar').style.display = 'none';
     juegoIniciado = true;
     lanzarPelota();
 });
 
+// Movimiento de jugadores
 document.addEventListener("keydown", (e) => {
     if (!juegoIniciado) return;
 
     // Movimiento del Jugador 2
     if (e.key === "ArrowDown") {
-        if (posicionY2 + 50 < limiteYAbajo) {
+        if (posicionY2 + alturaJugador < limiteYAbajo) {
             posicionY2 += velocidad;
-            jugador2.setAttribute("y1", posicionY2);
-            jugador2.setAttribute("y2", posicionY2 + alturaJugador);
+            jugador2.setAttribute("y", posicionY2);
         }
     }
     else if (e.key === "ArrowUp") {
-        if (posicionY2 - velocidad > limiteYArriba) {
+        if (posicionY2 > limiteYArriba) {
             posicionY2 -= velocidad;
-            jugador2.setAttribute("y1", posicionY2);
-            jugador2.setAttribute("y2", posicionY2 + alturaJugador);
+            jugador2.setAttribute("y", posicionY2);
         }
     }
 
     // Movimiento del Jugador 1
     if (e.key === "s" || e.key === "S") {
-        if (posicionY1 + 50 < limiteYAbajo) {
+        if (posicionY1 + alturaJugador < limiteYAbajo) {
             posicionY1 += velocidad;
-            jugador1.setAttribute("y1", posicionY1);
-            jugador1.setAttribute("y2", posicionY1 + alturaJugador);
+            jugador1.setAttribute("y", posicionY1);
         }
     }
     else if (e.key === "w" || e.key === "W") {
-        if (posicionY1 - velocidad > limiteYArriba) {
+        if (posicionY1 > limiteYArriba) {
             posicionY1 -= velocidad;
-            jugador1.setAttribute("y1", posicionY1);
-            jugador1.setAttribute("y2", posicionY1 + alturaJugador);
+            jugador1.setAttribute("y", posicionY1);
         }
     }
 });
 
+// Movimiento pelota
 function lanzarPelota() {
     setInterval(() => {
         if (!juegoIniciado) return;
 
+        // Actualizar la posición de la pelota
         pelotaX += velocidadX;
         pelotaY += velocidadY;
 
         // Rebote en las paredes
-        if (pelotaY <= limiteYArriba + 40 || pelotaY >= limiteYAbajo + 150) {
+        if (pelotaY <= limiteYArriba || pelotaY >= limiteYAbajo - parseInt(pelota.getAttribute("r"))) {
             velocidadY = -velocidadY;
         }
 
         // Colisión con el Jugador 1
-        if (pelotaX <= posicionX1 + margenColisionJugador1 && pelotaX >= posicionX1 - margenColisionJugador1 &&
-            pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
+        if (pelotaX <= limiteXIzquierda + margenColisionJugador1 && pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
             velocidadX = -velocidadX;
         }
 
         // Colisión con el Jugador 2
-        if (pelotaX >= posicionX2 - margenColisionJugador2 && pelotaX <= posicionX2 + margenColisionJugador2 &&
-            pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
+        if (pelotaX >= limiteXDerecha - margenColisionJugador2 && pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
             velocidadX = -velocidadX;
         }
 
-        if (pelotaX <= limiteXIzquierda || pelotaX >= limiteXDerecha) {
-            pelotaX = 739;
-            pelotaY = 344;
-            velocidadX = -velocidadX;
+        // Reinicio de la pelota y marcar goles
+        if (pelotaX <= limiteXIzquierda - 55) {
+            golesJugador2++;
+            actualizarMarcador();
+            resetPelota();
+        }
+
+        if (pelotaX >= limiteXDerecha + 48) {
+            golesJugador1++;
+            actualizarMarcador();
+            resetPelota();
         }
 
         pelota.setAttribute('cx', pelotaX);
         pelota.setAttribute('cy', pelotaY);
 
     }, 1000 / 60);
+}
+
+// Función para actualizar el marcador en la pantalla
+function actualizarMarcador() {
+    marcador.textContent = `Jugador 1: ${golesJugador1} | Jugador 2: ${golesJugador2}`;
+}
+
+// Función para reiniciar la pelota
+function resetPelota() {
+    pelotaX = parseInt(pantalla.getAttribute("width")) / 2;
+    pelotaY = parseInt(pantalla.getAttribute("height")) / 2;
+    velocidadX = -velocidadX;
+    velocidadY = 5;
 }

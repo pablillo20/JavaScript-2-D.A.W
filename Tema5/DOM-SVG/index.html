@@ -25,17 +25,26 @@
       font-size: 18px;
       cursor: pointer;
     }
+    #marcador {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 30px;
+      font-family: Arial, sans-serif;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
   </style>
 </head>
 <body>
 
 <button id="Iniciar">Click Para Jugar</button>
+<div id="marcador">Jugador 1: 0 | Jugador 2: 0</div>
 <svg width="1478" height="732" xmlns="http://www.w3.org/2000/svg" id="pantalla">
   <circle id="pelota" cx="739" cy="344" r="40" stroke="green" stroke-width="4" fill="yellow" />
-
-  <line id="jugador1" x1="100" y1="250" x2="100" y2="482" stroke="white" stroke-width="16"  />
-
-  <line id="jugador2" x1="1378" y1="250" x2="1378" y2="482" stroke="white" stroke-width="16" />
+  <rect id="jugador1" height="250" width="20" fill="yellow" x="100" y="100"></rect>
+  <rect id="jugador2" height="250" width="20" fill="yellow" x="1378" y="100"></rect>
 </svg>
 
 <script src="index.js"></script>
