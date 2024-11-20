@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      form {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      div {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+      }
+      p {
+        color: red;
+        font-size: 12px;
+      }
+    </style>
+</head>
+<body>
+<h2>Formulario de Registro</h2>
+<form id="formularioRegistro">
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" onblur="validarNombre()">
+    <p id="errorN"></p>
+  </div>
+
+  <div>
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos">
+    <p id="errorA"></p>
+  </div>
+
+  <div>
+    <label for="dni">DNI:</label>
+    <input type="text" id="dni">
+    <p id="errorD"></p>
+  </div>
+
+  <div>
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono">
+    <p id="errorT"></p>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="text" id="email">
+    <p id="errorE"></p>
+  </div>
+
+  <div>
+    <label for="usuario">Nombre de Usuario:</label>
+    <input type="text" id="usuario">
+    <p id="errorU"></p>
+  </div>
+
+  <button type="submit">Registrar</button>
+</form>
+<script src="index.js"></script>
+</body>
+</html>

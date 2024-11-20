@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <style>
+        body {
+            background-color: #f58292;
+            font-family: sans-serif;
+            color: yellow;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 200px;
+        }
+        .contenedor {
+            width: 400px;
+            text-align: center;
+        }
+        .campo-entrada {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-bottom: 3px solid yellow;
+            background: transparent;
+            outline: none;
+            font-size: 20px;
+            color: yellow;
+            text-align: center;
+        }
+        input[type="text"]:focus {
+            border-bottom: 3px solid yellow;
+        }
+        input::placeholder {
+            color: yellow;
+            font-size: 18px;
+        }
+        .reglas {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: left;
+            padding-left: 20px;
+        }
+        .reglas li {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        button {
+            background-color: yellow;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #f58292;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <form>
+        <div class="campo-entrada">
+            <input type="text" name="usuario" placeholder="Username" id="username">
+        </div>
+        <ul class="reglas">
+            <li id="minuscula">1 carácter en minúsculas</li>
+            <li id="mayuscula">1 carácter en mayúsculas</li>
+            <li id="seis">6 caracteres minimo</li>
+        </ul>
+        <button type="submit" id="enviar">Enviar</button>
+    </form>
+</div>
+<script src="index.js"></script>
+</body>
+</html>

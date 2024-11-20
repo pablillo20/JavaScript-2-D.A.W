@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro en Crowdrise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #6200ea;
+        }
+
+        .contenedor {
+            width: 900px;
+            height: 600px;
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .izquierda {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .imagen-ilustrativa {
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1421790500381-fc9b5996f343?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3') no-repeat center center/cover;
+        }
+
+        .derecha {
+            flex: 1;
+            background: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contenedor-formulario {
+            width: 100%;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        form label {
+            color: #666;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .entrada-mitad {
+            width: calc(50% - 7.5px);
+        }
+
+        .contenedor-checkbox {
+            width: 100%;
+            display: flex;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            align-items: stretch;
+            flex-direction: row-reverse;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6200ea;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        boton:hover {
+            background-color: #7e57c2;
+        }
+
+        .pie-pagina {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .pie-pagina a {
+            color: #6200ea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <div class="izquierda">
+        <div class="imagen-ilustrativa"></div>
+    </div>
+    <div class="derecha">
+        <div class="contenedor-formulario">
+            <h2>Bienvenido a Crowdrise</h2>
+            <p>Vamos a prepararte para que puedas verificar tu organización sin fines de lucro y comenzar a configurar tu primera campaña.</p>
+            <form>
+                <div class="entrada-mitad">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre">
+                </div>
+
+                <div class="entrada-mitad">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" placeholder="Apellido">
+                </div>
+
+                <div class="entrada-mitad">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" placeholder="949867539">
+                </div>
+
+                <div class="entrada-mitad">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" placeholder="correo@ejemplo.com">
+                </div>
+
+                <div class="entrada-mitad">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" placeholder="Contraseña">
+                </div>
+
+                <div class="entrada-mitad">
+                    <label for="confirmar-contrasena">Confirmar Contraseña</label>
+                    <input type="password" id="confirmar-contrasena" placeholder="Confirmar Contraseña">
+                </div>
+
+                <div class="contenedor-checkbox">
+                    <label><input type="checkbox"> Sí, quiero recibir correos de Crowdrise</label>
+                    <label><input type="checkbox"> Acepto los Términos, Política de Privacidad y Tarifas.</label>
+                </div>
+
+                <button type="submit">Registrarse</button>
+            </form>
+            <p class="pie-pagina">¿No trabajas para una organización sin fines de lucro? <a href="#">Aún puedes recaudar fondos</a></p>
+        </div>
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>

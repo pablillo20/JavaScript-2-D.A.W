@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Bonita</title>
+    <script src="index.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 5px;
+            text-align: right;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <p id="resultado"> </p>
+    <p id="previa"> </p>
+    <table>
+        <tr>
+            <td><button id="sumar">+</button></td>
+            <td><button id="restar">-</button></td>
+            <td><button id="multiplicar">*</button></td>
+            <td><button id="dividir">/</button></td>
+        </tr>
+        <tr>
+            <td><button id="btn7">7</button></td>
+            <td><button id="btn8">8</button></td>
+            <td><button id="btn9">9</button></td>
+            <td><button id="btnC">C</button></td>
+        </tr>
+        <tr>
+            <td><button id="btn4">4</button></td>
+            <td><button id="btn5">5</button></td>
+            <td><button id="btn6">6</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button id="btn1">1</button></td>
+            <td><button id="btn2">2</button></td>
+            <td><button id="btn3">3</button></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3"><button id="btn0">0</button></td>
+            <td><button id="igual">=</button></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

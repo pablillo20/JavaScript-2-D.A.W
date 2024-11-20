@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Tarjeta de Crédito</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e6f0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .tarjeta {
+      background-color: #1c1c1c;
+      color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .tarjeta .logo {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .tarjeta .numero {
+      font-size: 16px;
+      letter-spacing: 3px;
+      margin: 15px 0;
+    }
+
+    .tarjeta .detalles {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .tarjeta .detalles span {
+      text-transform: uppercase;
+    }
+
+    .formulario {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .formulario label {
+      font-size: 12px;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    .formulario input,
+    .formulario select {
+      padding: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .formulario .boton-enviar {
+      background-color: #005ce6;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .formulario .boton-enviar:hover {
+      background-color: #0041b3;
+    }
+  </style>
+</head>
+<body>
+<div class="contenedor">
+  <div class="tarjeta">
+    <div class="logo">VISA</div>
+    <div class="numero" id="num">#### #### #### ####</div>
+    <div class="detalles">
+      <span class="titular" id="nom">NOMBRE COMPLETO</span>
+      <span class="vencimiento" id="ven">MM/AA</span>
+    </div>
+  </div>
+
+  <form class="formulario" id="formulario">
+    <label for="numero-tarjeta">Número de Tarjeta</label>
+    <input type="text" id="numero-tarjeta" placeholder="#### #### #### ####">
+
+    <label for="titular-tarjeta">Titular de la Tarjeta</label>
+    <input type="text" id="titular-tarjeta" placeholder="Nombre Completo">
+
+    <label for="mes-vencimiento">Fecha de Vencimiento</label>
+    <div style="display: flex; gap: 10px;">
+      <select id="mes-vencimiento">
+        <option value="" disabled selected>Mes</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+
+      <select id="año-vencimiento">
+        <option value="" disabled selected>Año</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+      </select>
+    </div>
+
+    <label for="cvv">CVV</label>
+    <input type="text" id="cvv" placeholder="CVV">
+
+    <button type="submit" class="boton-enviar">Enviar</button>
+  </form>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
