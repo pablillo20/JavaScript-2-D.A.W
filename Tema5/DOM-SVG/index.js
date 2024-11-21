@@ -9,6 +9,7 @@ let posicionY1 = parseInt(jugador1.getAttribute("y"));
 let posicionY2 = parseInt(jugador2.getAttribute("y"));
 let pelotaX = parseInt(pelota.getAttribute("cx"));
 let pelotaY = parseInt(pelota.getAttribute("cy"));
+let r = parseInt(pelota.getAttribute("r"));
 
 // Velocidad pelota
 let velocidadX = 5;
@@ -29,8 +30,8 @@ const margenColisionJugador1 = parseInt(jugador1.getAttribute("width"));
 const margenColisionJugador2 = parseInt(jugador2.getAttribute("width"));
 
 let juegoIniciado = false;
-let golesJugador1 = 0; // Contador de goles para el Jugador 1
-let golesJugador2 = 0; // Contador de goles para el Jugador 2
+let golesJugador1 = 0;
+let golesJugador2 = 0;
 
 // Inicia el juego
 document.getElementById('Iniciar').addEventListener('click', () => {
@@ -82,17 +83,21 @@ function lanzarPelota() {
         pelotaY += velocidadY;
 
         // Rebote en las paredes
-        if (pelotaY <= limiteYArriba || pelotaY >= limiteYAbajo - parseInt(pelota.getAttribute("r"))) {
+        if (pelotaY <= limiteYArriba + r || pelotaY >= limiteYAbajo - r) {
             velocidadY = -velocidadY;
         }
 
         // Colisión con el Jugador 1
-        if (pelotaX <= limiteXIzquierda + margenColisionJugador1 && pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
+        if (pelotaX <= limiteXIzquierda + r && pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
+            velocidadX++;
+            velocidadY++;
             velocidadX = -velocidadX;
         }
 
         // Colisión con el Jugador 2
-        if (pelotaX >= limiteXDerecha - margenColisionJugador2 && pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
+        if (pelotaX >= limiteXDerecha - r && pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
+            velocidadX++;
+            velocidadY++;
             velocidadX = -velocidadX;
         }
 
@@ -124,6 +129,7 @@ function actualizarMarcador() {
 function resetPelota() {
     pelotaX = parseInt(pantalla.getAttribute("width")) / 2;
     pelotaY = parseInt(pantalla.getAttribute("height")) / 2;
-    velocidadX = -velocidadX;
     velocidadY = 5;
+    velocidadX = 5;
+    velocidadX = -velocidadX;
 }
