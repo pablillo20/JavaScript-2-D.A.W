@@ -3,42 +3,60 @@ let jugador2 = document.getElementById('jugador2');
 let pelota = document.getElementById('pelota');
 let pantalla = document.getElementById('pantalla');
 let marcador = document.getElementById('marcador');
+let modo2jugadores = document.getElementById('modo2jugadores');
+let modoIA = document.getElementById('modoIA');
 
-// Posiciones iniciales
 let posicionY1 = parseInt(jugador1.getAttribute("y"));
 let posicionY2 = parseInt(jugador2.getAttribute("y"));
 let pelotaX = parseInt(pelota.getAttribute("cx"));
 let pelotaY = parseInt(pelota.getAttribute("cy"));
 let r = parseInt(pelota.getAttribute("r"));
 
-// Velocidad pelota
 let velocidadX = 5;
 let velocidadY = 5;
 
-// Límites
 const limiteYArriba = 0;
 const limiteYAbajo = parseInt(pantalla.getAttribute("height"));
 const limiteXIzquierda = parseInt(jugador1.getAttribute("x"));
 const limiteXDerecha = parseInt(jugador2.getAttribute("x")) + parseInt(jugador2.getAttribute("width"));
 
-// Velocidad jugadores
 const velocidad = 10;
 
-// Características de los jugadores
 const alturaJugador = parseInt(jugador1.getAttribute("height"));
-const margenColisionJugador1 = parseInt(jugador1.getAttribute("width"));
-const margenColisionJugador2 = parseInt(jugador2.getAttribute("width"));
+const anchoPantallaDerecha = parseInt(pantalla.getAttribute("width"));
 
 let juegoIniciado = false;
 let golesJugador1 = 0;
 let golesJugador2 = 0;
+let modoJuego = ''; // "jugador", "ia"
 
 // Inicia el juego
 document.getElementById('Iniciar').addEventListener('click', () => {
     document.getElementById('Iniciar').style.display = 'none';
+    modo2jugadores.style.display = 'block';
+    modoIA.style.display = 'block';
+});
+
+// Selecciona el modo de juego
+modo2jugadores.addEventListener('click', () => {
+    modoJuego = 'jugador';
+    modo2jugadores.style.display = 'none';
+    modoIA.style.display = 'none';
+    iniciarJuego();
+});
+
+modoIA.addEventListener('click', () => {
+    modoJuego = 'ia';
+    modo2jugadores.style.display = 'none';
+    modoIA.style.display = 'none';
+    iniciarJuego();
+});
+
+// Inicia el juego
+function iniciarJuego() {
     juegoIniciado = true;
     lanzarPelota();
-});
+}
 
 // Movimiento de jugadores
 document.addEventListener("keydown", (e) => {
@@ -87,31 +105,34 @@ function lanzarPelota() {
             velocidadY = -velocidadY;
         }
 
-        // Colisión con el Jugador 1
-        if (pelotaX <= limiteXIzquierda + r && pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
-            velocidadX++;
-            velocidadY++;
-            velocidadX = -velocidadX;
-        }
-
-        // Colisión con el Jugador 2
-        if (pelotaX >= limiteXDerecha - r && pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
-            velocidadX++;
-            velocidadY++;
-            velocidadX = -velocidadX;
-        }
-
         // Reinicio de la pelota y marcar goles
-        if (pelotaX <= limiteXIzquierda - 55) {
+        if (pelotaX - r <= 0) {
             golesJugador2++;
             actualizarMarcador();
             resetPelota();
-        }
-
-        if (pelotaX >= limiteXDerecha + 48) {
+        } else  if (pelotaX + r >= anchoPantallaDerecha) {
             golesJugador1++;
             actualizarMarcador();
             resetPelota();
+        } else {
+            // Colisión con el Jugador 1
+            if (pelotaX <= limiteXIzquierda + r && pelotaY >= posicionY1 && pelotaY <= posicionY1 + alturaJugador) {
+                velocidadX++;
+                velocidadY++;
+                velocidadX = -velocidadX;
+            }
+
+            // Colisión con el Jugador 2
+            if (pelotaX >= limiteXDerecha - r && pelotaY >= posicionY2 && pelotaY <= posicionY2 + alturaJugador) {
+                velocidadX++;
+                velocidadY++;
+                velocidadX = -velocidadX;
+            }
+        }
+
+        // Si es contra IA, mover IA
+        if (modoJuego === 'ia') {
+            ia();
         }
 
         pelota.setAttribute('cx', pelotaX);
@@ -127,9 +148,33 @@ function actualizarMarcador() {
 
 // Función para reiniciar la pelota
 function resetPelota() {
+    pantalla.style.backgroundImage = "url('./fondo.gif')";
+    setTimeout(() => {
+        pantalla.style.backgroundImage = "url('pista.jpg')";
+        pantalla.style.backgroundSize = "cover";
+    }, 2000);
+
     pelotaX = parseInt(pantalla.getAttribute("width")) / 2;
     pelotaY = parseInt(pantalla.getAttribute("height")) / 2;
     velocidadY = 5;
     velocidadX = 5;
     velocidadX = -velocidadX;
+}
+
+
+function ia() {
+    // Movimiento de la IA para seguir la pelota
+    if (pelotaY > posicionY2 + alturaJugador / 2) {
+        posicionY2+=3;
+    } else if (pelotaY < posicionY2 + alturaJugador / 2) {
+        posicionY2-=3;
+    }
+
+    if (posicionY2 < limiteYArriba) {
+        posicionY2 = limiteYArriba;
+    } else if (posicionY2 + alturaJugador > limiteYAbajo) {
+        posicionY2 = limiteYAbajo - alturaJugador;
+    }
+
+    jugador2.setAttribute("y", posicionY2);
 }
