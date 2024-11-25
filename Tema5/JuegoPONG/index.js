@@ -28,7 +28,7 @@ const anchoPantallaDerecha = parseInt(pantalla.getAttribute("width"));
 let juegoIniciado = false;
 let golesJugador1 = 0;
 let golesJugador2 = 0;
-let modoJuego = ''; // "jugador", "ia"
+let modoJuego = '';
 
 // Inicia el juego
 document.getElementById('Iniciar').addEventListener('click', () => {
