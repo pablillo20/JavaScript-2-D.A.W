@@ -10,23 +10,8 @@ window.onload = () => {
     if (localStorage.getItem("notas")) {
         notas = JSON.parse(localStorage.getItem("notas"));
         notas.forEach((nota) => {
-            const notaDiv = document.createElement("div");
-            notaDiv.classList.add("nota");
-            notaDiv.setAttribute("data-id", nota.id);
-
-            notaDiv.innerHTML = `
-                <h3>${nota.titulo}</h3>
-                <p>${nota.texto}</p>
-                <small>Creada: ${new Date(nota.horaCreacion).toLocaleString()}</small>
-                <button class="borrarNotaBtn">Borrar</button>
-            `;
+            const notaDiv = crearElementoNota(nota);
             listaNotasDiv.appendChild(notaDiv);
-
-            // Mover nota
-            mover(notaDiv);
-
-            // Agregar el evento de borrar
-            notaDiv.querySelector(".borrarNotaBtn").addEventListener("click", () => borrarNota(nota.id));
         });
     }
 
@@ -48,24 +33,9 @@ window.onload = () => {
             notas.push(nota);
             localStorage.setItem("notas", JSON.stringify(notas));
 
-            // Agregar la nueva nota
-            const notaDiv = document.createElement("div");
-            notaDiv.classList.add("nota");
-            notaDiv.setAttribute("data-id", nota.id);
-
-            notaDiv.innerHTML = `
-                <h3>${nota.titulo}</h3>
-                <p>${nota.texto}</p>
-                <small>Creada: ${new Date(nota.horaCreacion).toLocaleString()}</small>
-                <button class="borrarNotaBtn">Borrar</button>
-            `;
+            // Agregar la nueva
+            const notaDiv = crearElementoNota(nota);
             listaNotasDiv.appendChild(notaDiv);
-
-            // Mover nota
-            mover(notaDiv);
-
-            // Agregar el evento de borrar
-            notaDiv.querySelector(".borrarNotaBtn").addEventListener("click", () => borrarNota(nota.id));
 
             // Limpiar los campos de entrada
             titulo.value = "";
@@ -76,12 +46,47 @@ window.onload = () => {
         }
     });
 
+    function crearElementoNota(nota) {
+        const notaDiv = document.createElement("div");
+        notaDiv.classList.add("nota");
+        notaDiv.setAttribute("data-id", nota.id);
+
+        notaDiv.innerHTML = `
+            <h3 contenteditable="true">${nota.titulo}</h3>
+            <p contenteditable="true">${nota.texto}</p>
+            <small>Creada: ${new Date(nota.horaCreacion).toLocaleString()}</small>
+            <button class="borrarNotaBtn">Borrar</button>
+        `;
+
+        // Mover nota
+        mover(notaDiv);
+
+        // Agregar el evento de borrar
+        notaDiv.querySelector(".borrarNotaBtn").addEventListener("click", () => borrarNota(nota.id));
+
+        // Agregar eventos para guardar cambios
+        const tituloEditable = notaDiv.querySelector("h3");
+        const textoEditable = notaDiv.querySelector("p");
+
+        tituloEditable.addEventListener("input", () => actualizarNota(nota.id, "titulo", tituloEditable.innerText));
+        textoEditable.addEventListener("input", () => actualizarNota(nota.id, "texto", textoEditable.innerText));
+
+        return notaDiv;
+    }
+
     function borrarNota(id) {
         notas = notas.filter(nota => nota.id !== id);
         localStorage.setItem("notas", JSON.stringify(notas));
 
-        // Eliminar
         document.querySelector(`[data-id='${id}']`).remove();
+    }
+
+    function actualizarNota(id, campo, valor) {
+        const nota = notas.find(nota => nota.id === id);
+        if (nota) {
+            nota[campo] = valor;
+            localStorage.setItem("notas", JSON.stringify(notas));
+        }
     }
 
     // Función para mover nota
@@ -114,5 +119,4 @@ window.onload = () => {
             }
         }
     }
-
 }
