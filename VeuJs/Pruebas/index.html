@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+
+        <h1>{{ message }}</h1>
+
+        <p v-if="mostrarTexto">
+            {{ texto }}
+        </p>
+
+        <p v-else style="color: red;">
+            No se muestra el texto
+        </p>
+
+        <p v-show="show">
+            {{ texto }}
+        </p>
+
+        <input type="text" v-model="contenidodelinput">
+        <button v-on:click="btnPulsado">Añade a la lista</button>
+
+        <ol>
+            <li v-for="(nombre,indice) in nombres" @click="borrarElemento(indice)">
+                <b>{{ nombre }}</b>
+            </li>
+        </ol>
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>
